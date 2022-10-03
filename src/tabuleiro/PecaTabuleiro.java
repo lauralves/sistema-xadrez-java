@@ -1,10 +1,10 @@
 package tabuleiro;
 
-public class Peca {
-	protected Posicao posicao;
+public class PecaTabuleiro {
+	protected PosicaoTabuleiro posicao;
 	private Tabuleiro tabuleiro;
 	
-	public Peca(Tabuleiro tabuleiro) {
+	public PecaTabuleiro(Tabuleiro tabuleiro) {
 		this.tabuleiro = tabuleiro;
 		posicao = null; //é nulo automaticamente pelo Java, mas é importante enfatizar para fins didáticos
 	}

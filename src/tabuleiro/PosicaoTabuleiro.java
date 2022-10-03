@@ -1,14 +1,14 @@
 package tabuleiro;
 
-public class Posicao {
+public class PosicaoTabuleiro {
 	private Integer linha;
 	private Integer coluna;
 	
-	public Posicao() {
+	public PosicaoTabuleiro() {
 		
 	}
 
-	public Posicao(Integer linha, Integer coluna) {
+	public PosicaoTabuleiro(Integer linha, Integer coluna) {
 		super();
 		this.linha = linha;
 		this.coluna = coluna;
