@@ -40,7 +40,10 @@ public class PartidaXadrez {
 	}
 	private void validarPosicaoOriginal(PosicaoTabuleiro posicao) {
 		if (!tabuleiro.temPeca(posicao)) {
-			throw new XadrezException("Não há essa posição no tabuleiro");
+			throw new XadrezException("Não há essa peca no tabuleiro");
+		}
+		if(!tabuleiro.peca(posicao).existeMovimentoPossivel(posicao)) {
+			throw new XadrezException("Não há movimentos possiveis para essa peca");
 		}
 	}
 	private void posicionarNovaPeca (char coluna, int linha, PecaTabuleiro peca) {

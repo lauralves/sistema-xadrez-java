@@ -29,16 +29,10 @@ public class Programa {
 	} 
 	} catch (XadrezException e ) {
 		System.out.println(e.getMessage());
-		scan.nextLine();
+	
 	} catch (InputMismatchException e) {
 		System.out.println(e.getMessage());
-		scan.nextLine();
+	
 	}
-	
-	
-	
-	
-	
-	
 	}
 }
