@@ -1,10 +1,10 @@
 package tabuleiro;
 
-public abstract class PecaTabuleiro {
-	protected PosicaoTabuleiro posicao;
+public abstract class Peca {
+	protected Posicao posicao;
 	private Tabuleiro tabuleiro;
 
-	public PecaTabuleiro(Tabuleiro tabuleiro) {
+	public Peca(Tabuleiro tabuleiro) {
 		this.tabuleiro = tabuleiro;
 		posicao = null; // é nulo automaticamente pelo Java, mas é importante enfatizar para fins
 						// didáticos
@@ -16,11 +16,11 @@ public abstract class PecaTabuleiro {
 
 	public abstract boolean[][] movimentosPossiveis();
 
-	public boolean movimentoPossivel(PosicaoTabuleiro posicao) {
-		return movimentosPossiveis()[posicao.getLinha()][posicao.getLinha()];
+	public boolean movimentoPossivel(Posicao posicao) {
+		return movimentosPossiveis()[posicao.getLinha()][posicao.getColuna()];
 	}
 
-	public boolean existeMovimentoPossivel(PosicaoTabuleiro posicao) {
+	public boolean existeMovimentoPossivel(Posicao posicao) {
 		boolean[][] matriz = movimentosPossiveis();
 		for (int i = 0; i < matriz.length; i++) {
 			for (int j = 0; j < matriz.length; j++) {

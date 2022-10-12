@@ -1,6 +1,6 @@
 package xadrez;
 
-import tabuleiro.PosicaoTabuleiro;
+import tabuleiro.Posicao;
 
 public class PosicaoXadrez {
 	private char coluna;
@@ -21,11 +21,11 @@ public class PosicaoXadrez {
 		return linha;
 	}
 
-	protected PosicaoTabuleiro toPosicao() {
-		return new PosicaoTabuleiro(8 - linha, coluna - 'a' );
+	protected Posicao toPosicao() {
+		return new Posicao(8 - linha, coluna - 'a' );
 	}
 	
-	protected static PosicaoXadrez fromPosicao (PosicaoTabuleiro posicao) {
+	protected static PosicaoXadrez fromPosicao (Posicao posicao) {
 		return new PosicaoXadrez ((char) ('a' -  posicao.getColuna()),8 - posicao.getLinha());
 	}
 	

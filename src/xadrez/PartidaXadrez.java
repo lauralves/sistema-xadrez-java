@@ -1,7 +1,7 @@
 package xadrez;
 
-import tabuleiro.PecaTabuleiro;
-import tabuleiro.PosicaoTabuleiro;
+import tabuleiro.Peca;
+import tabuleiro.Posicao;
 import tabuleiro.Tabuleiro;
 import xadrez.pecas.Rei;
 import xadrez.pecas.Torre;
@@ -24,21 +24,29 @@ public class PartidaXadrez {
 	
 	}
 	
+	public boolean [][] movimentosPossiveis (PosicaoXadrez posicaoOriginal)  {
+		Posicao posicao = posicaoOriginal.toPosicao();
+		validarPosicaoOriginal(posicao);
+		return tabuleiro.peca(posicao).movimentosPossiveis();
+		
+	}
+	
 	public PecaXadrez executarMovimento(PosicaoXadrez posicaoOriginal, PosicaoXadrez posicaoDestino) {
-		PosicaoTabuleiro original = posicaoOriginal.toPosicao();
-		PosicaoTabuleiro destino = posicaoDestino.toPosicao();
+		Posicao original = posicaoOriginal.toPosicao();
+		Posicao destino = posicaoDestino.toPosicao();
 		validarPosicaoOriginal(original);
-		PecaTabuleiro capturarPeca = fazerMovimento(original, destino);
+		validarPosicaoDestino(original, destino);
+		Peca capturarPeca = fazerMovimento(original, destino);
 		return(PecaXadrez) capturarPeca;
 	}
 	
-	private PecaTabuleiro fazerMovimento(PosicaoTabuleiro original, PosicaoTabuleiro destino) {
-		PecaTabuleiro p = tabuleiro.removerPeca(original);
-		PecaTabuleiro capturarPeca = tabuleiro.removerPeca(destino);
+	private Peca fazerMovimento(Posicao original, Posicao destino) {
+		Peca p = tabuleiro.removerPeca(original);
+		Peca capturarPeca = tabuleiro.removerPeca(destino);
 		tabuleiro.posicionarPeca(p, destino);
 		return capturarPeca;
 	}
-	private void validarPosicaoOriginal(PosicaoTabuleiro posicao) {
+	private void validarPosicaoOriginal(Posicao posicao) {
 		if (!tabuleiro.temPeca(posicao)) {
 			throw new XadrezException("Não há essa peca no tabuleiro");
 		}
@@ -46,7 +54,12 @@ public class PartidaXadrez {
 			throw new XadrezException("Não há movimentos possiveis para essa peca");
 		}
 	}
-	private void posicionarNovaPeca (char coluna, int linha, PecaTabuleiro peca) {
+	private void validarPosicaoDestino(Posicao original, Posicao destino) {
+		if (!tabuleiro.peca(original).movimentoPossivel(destino)) {
+			throw new XadrezException("A peca escolhida nao pode se mover para a posicao de destino");
+		}
+	}
+	private void posicionarNovaPeca (char coluna, int linha, Peca peca) {
 		tabuleiro.posicionarPeca(peca, new PosicaoXadrez(coluna, linha).toPosicao());
 	}
 	private void configuraçãoInicial() {
