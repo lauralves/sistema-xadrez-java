@@ -48,15 +48,23 @@ public class UI {
 			throw new InputMismatchException("Erro ao ler PosicaoXadrez: valores válidos de a1 até h8");
 		}
 	}
-	public static void printPartida(PartidaXadrez partidaXadrez, List <PecaXadrez> capturada) {
+
+	public static void printPartida(PartidaXadrez partidaXadrez, List<PecaXadrez> capturada) {
 		printBoard(partidaXadrez.getPecas());
 		System.out.println();
 		printPecasCapturadas(capturada);
 		System.out.println();
 		System.out.println("Turno: " + partidaXadrez.getTurno());
-		System.out.println("Esperando jogador: " + partidaXadrez.getJogadorAtual());
-		if(partidaXadrez.getCheck()) {
-			System.out.println("CHECK!");
+
+		if (!partidaXadrez.getCheckMate()) {
+			System.out.println("Esperando jogador: " + partidaXadrez.getJogadorAtual());
+			if (partidaXadrez.getCheck()) {
+				System.out.println("CHECK!");
+			}
+
+		} else {
+			System.out.println("CHECKMATE!");
+			System.out.println("Vencedor: " + partidaXadrez.getJogadorAtual());
 		}
 	}
 
@@ -70,7 +78,8 @@ public class UI {
 		}
 		System.out.println("  a b c d e f g h");
 	}
-	public static void printBoard(PecaXadrez[][] pecas, boolean [][] movimentosPossiveis) {
+
+	public static void printBoard(PecaXadrez[][] pecas, boolean[][] movimentosPossiveis) {
 		for (int i = 0; i < pecas.length; i++) {
 			System.out.print((8 - i) + " ");
 			for (int j = 0; j < pecas.length; j++) {
@@ -85,7 +94,7 @@ public class UI {
 		if (background) {
 			System.out.print(ANSI_BLUE_BACKGROUND);
 		}
-		
+
 		if (peca == null) {
 			System.out.print("-" + ANSI_RESET);
 		} else {
@@ -97,9 +106,10 @@ public class UI {
 		}
 		System.out.print(" ");
 	}
-	
+
 	private static void printPecasCapturadas(List<PecaXadrez> capturada) {
-		List<PecaXadrez> branco = capturada.stream().filter(x -> x.getCor() == Cores.BRANCO).collect(Collectors.toList());
+		List<PecaXadrez> branco = capturada.stream().filter(x -> x.getCor() == Cores.BRANCO)
+				.collect(Collectors.toList());
 		List<PecaXadrez> preto = capturada.stream().filter(x -> x.getCor() == Cores.PRETO).collect(Collectors.toList());
 		System.out.println("Pecas capturadas: ");
 		System.out.print("Brancas: ");
